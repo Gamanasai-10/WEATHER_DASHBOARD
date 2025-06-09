@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>🌤️ Weather Dashboard (Mock)</title>
+  <style>
+    :root {
+      --bg-dark: #1e1e2f;
+      --bg-light: #f9f9f9;
+      --text-dark: #fff;
+      --text-light: #111;
+      --card-dark: #2e3b55;
+      --card-light: #ffffff;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-dark);
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 40px 20px;
+      min-height: 100vh;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .light-theme {
+      background-color: var(--bg-light);
+      color: var(--text-light);
+    }
+
+    .dashboard {
+      width: 100%;
+      max-width: 600px;
+      background-color: rgba(0, 0, 50, 0.8);
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
+    }
+
+    .light-theme .dashboard {
+      background-color: rgba(255, 255, 255, 0.95);
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .features {
+      font-size: 0.9em;
+      margin-bottom: 15px;
+      text-align: center;
+      color: #ccc;
+    }
+
+    .search {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .search input, .search button {
+      padding: 10px;
+      border-radius: 8px;
+      border: none;
+    }
+
+    .search button {
+      background-color: #4fc3f7;
+      color: #000;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .forecast {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+      gap: 15px;
+    }
+
+    .forecast-card {
+      background-color: var(--card-dark);
+      border-radius: 10px;
+      padding: 10px;
+      text-align: center;
+    }
+
+    .light-theme .forecast-card {
+      background-color: var(--card-light);
+    }
+
+    .forecast-card img {
+      width: 50px;
+    }
+  </style>
+</head>
+<body>
+  <div class="dashboard">
+    <h1>🌤️ Weather Dashboard</h1>
+    <div class="features">
+      🌦️ 7-Day Forecast | 📍 Auto Location Support (Mock) | 🌙 Theme Toggle
+    </div>
+    <div class="search">
+      <input type="text" placeholder="Enter city (mock only)" />
+      <button onclick="renderForecast()">Search</button>
+      <button onclick="toggleTheme()">🌓</button>
+    </div>
+    <div class="forecast" id="forecast"></div>
+  </div>
+
+  <script>
+    const mockForecast = [
+      { day: 'Thursday', temp: 16.7, humidity: 67, condition: 'Clear', icon: '01d' },
+      { day: 'Friday', temp: 21.3, humidity: 52, condition: 'Clear', icon: '01d' },
+      { day: 'Saturday', temp: 20.3, humidity: 46, condition: 'Clear', icon: '01d' },
+      { day: 'Sunday', temp: 17.1, humidity: 90, condition: 'Clouds', icon: '03d' },
+      { day: 'Monday', temp: 25.8, humidity: 58, condition: 'Rain', icon: '09d' },
+      { day: 'Tuesday', temp: 21.1, humidity: 47, condition: 'Clear', icon: '01d' },
+      { day: 'Wednesday', temp: 18.9, humidity: 64, condition: 'Rain', icon: '09d' }
+    ];
+
+    function toggleTheme() {
+      document.body.classList.toggle('light-theme');
+    }
+
+    function renderForecast() {
+      const container = document.getElementById('forecast');
+      container.innerHTML = '';
+      mockForecast.forEach(day => {
+        container.innerHTML += `
+          <div class="forecast-card">
+            <p>${day.day}</p>
+            <img src="https://openweathermap.org/img/wn/${day.icon}.png" alt="${day.condition}">
+            <p>${day.temp}°C</p>
+            <p>${day.condition}</p>
+            <p>Humidity: ${day.humidity}%</p>
+          </div>
+        `;
+      });
+    }
+
+    window.onload = renderForecast;
+  </script>
+</body>
+</html>
